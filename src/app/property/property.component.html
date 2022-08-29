@@ -1,0 +1,167 @@
+<div style="padding: 5% 0% 2% 22%;">
+    <button class="btn btn-danger" routerLinkActive="active-link" routerLink="/test-menu" id="link1">Go To Menu</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="get_api_property()">Property Details</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-success" (click)="btn_post_property()">New Property</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-warning" (click)="btn_put_property()">Update Property</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="get_api_propertymaster()">Property Master Details</button>
+    &nbsp;&nbsp;
+</div>
+
+<div *ngIf="flag_get_propertymaster" style="padding: 0% 10% 0% 10%;">
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+<table align="center">
+    <thead>
+        <tr>
+            <th>Property Master Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Cost of Assest</th>&nbsp;&nbsp;&nbsp;
+            <th>Salvage Value</th>&nbsp;&nbsp;&nbsp;
+            <th>Useful Life Of Assest</th>&nbsp;&nbsp;&nbsp;
+            <th>Property Value</th>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </thead>
+    &nbsp;
+    <tbody>
+        <tr *ngFor="let pm of propertymasters" style="text-align: center;">
+            <td>{{pm.propertyMasterId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{pm.costOfAssest}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{pm.salvageValue}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{pm.usefulLifeOfAssest}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{pm.propertyValue}}</td>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+
+<div *ngIf="flag_get_property" style="padding: 0% 10% 0% 10%;">
+    <div class="con"  style="padding: 2% 10% 2% 10%;" >
+<table align="center">
+    <thead>
+        <tr>
+            <th>Property Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Building Type</th>&nbsp;&nbsp;&nbsp;
+            <th>Building Storeys</th>&nbsp;&nbsp;&nbsp;
+            <th>Building Age</th>&nbsp;&nbsp;&nbsp;
+            <th>Business Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Property Master Id</th>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </thead>
+    &nbsp;
+    <tbody>
+        <tr *ngFor="let us of properties" style="text-align: center;">
+            <td>{{us.propertyId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.buildingType}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.buildingStoreys}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.buildingAge}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.businessId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.propertyMasterId}}</td>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+
+<div  *ngIf="flag_post" style="padding: 2% 30% 0% 30%;">
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+        <form #propertyForm="ngForm" (ngSubmit)="post_api(propertyForm.value)">
+            <div class="form-group">
+                <label for="buildingType">Building Type:</label>
+                <!--<input type="text" class="form-control" id="buildingType" name="buildingType" placeholder="Enter Building Type" [(ngModel)]="newproperty.buildingType" required/>-->
+                <select class="form-control" id="buildingType" name="buildingType" placeholder="Enter Building Type" [(ngModel)]="newproperty.buildingType" required>
+                    <option value="" disabled="disabled" selected="selected">Select Building Type</option>
+                    <option value="Owned">Owned</option>
+                    <option value="Rent">Rent</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="buildingStoreys">Building Storeys:</label>
+                <input type="number" class="form-control" id="buildingStoreys" name="buildingStoreys" placeholder="Enter Building Storeys" [(ngModel)]="newproperty.buildingStoreys" required>
+            </div>
+            <div class="form-group">
+                <label for="buildingAge">Building Age:</label>
+                <input type="number" class="form-control" id="buildingAge" name="buildingAge" placeholder="Enter Building Age" [(ngModel)]="newproperty.buildingAge" required>
+            </div>
+            <div class="form-group">
+                <label for="businessId">Business Id:</label>
+                <input type="number" class="form-control" id="businessId" name="businessId" placeholder="Enter Business Id" [(ngModel)]="newproperty.businessId" required>
+            </div>
+            <!-- <div class="form-group">
+                <label for="propertyMasterId">Property Master Id:</label>
+                <input type="number" class="form-control" id="propertyMasterId" name="propertyMasterId" placeholder="Enter Property Master Id" [(ngModel)]="property.propertyMaster.propertyMasterId">
+            </div> 
+             <div class="form-group">
+                <label for="propertyMasterId">Property Master Id:</label>
+                <input type="number" class="form-control" id="propertyMasterId" name="propertyMasterId" placeholder="Enter Property Master Id" [(ngModel)]="property.propertyMaster.propertyMasterId">
+            </div> -->
+            <div class="form-group">
+                <label for="costOfAssest">Cost Of Asset:</label>
+                <input type="number" class="form-control" id="costOfAssest" name="costOfAssest" placeholder="Enter Cost Of Asset" [(ngModel)]="newproperty.costOfAssest" required>
+            </div>
+            <div class="form-group">
+                <label for="salvageValue">Salvage Value:</label>
+                <input type="number" class="form-control" id="salvageValue" name="salvageValue" placeholder="Enter Salvage Value" [(ngModel)]="newproperty.salvageValue" required>
+            </div>
+            <div class="form-group">
+                <label for="usefulLifeOfAssest">Useful Life Of Asset:</label>
+                <input type="number" class="form-control" id="usefulLifeOfAssest" name="usefulLifeOfAssest" placeholder="Enter Useful Life Of Asset" [(ngModel)]="newproperty.usefulLifeOfAssest" required>
+            </div>
+            <input type="submit" class="btn btn-success" [disabled]="!propertyForm.valid" value="Submit">
+            <input type="reset" class="btn btn-danger" style="float: right;" value="Clear">
+        </form>
+    </div>
+</div>
+
+    <div *ngIf="flag_put" style="padding: 2% 30% 0% 30%;">
+        <div class="form-group">
+            <label for="u_id">Update Id</label>
+            <input type="number" class="form-control" id="u_id" [(ngModel)]="update_id">
+        </div>
+        <div class="con" style="padding: 2% 10% 2% 10%;" >
+        <form #propertyForm="ngForm" (ngSubmit)="put_api(update_id,propertyForm.value)">
+            <div class="form-group">
+                <label for="buildingType">Building Type:</label>
+                <!-- <input type="text" class="form-control" id="buildingType" name="buildingType" placeholder="Enter Building Type" [(ngModel)]="property.buildingType" required/> -->
+                <select class="form-control" id="buildingType" name="buildingType" placeholder="Enter Building Type" [(ngModel)]="newproperty.buildingType" required>
+                    <option value="" disabled="disabled" selected="selected">Select Building Type</option>
+                    <option value="Owned">Owned</option>
+                    <option value="Rent">Rent</option>
+                </select>
+                <small>*Required</small>
+            </div>
+            <div class="form-group">
+                <label for="buildingStoreys">Building Storeys:</label>
+                <input type="number" class="form-control" id="buildingStoreys" name="buildingStoreys" placeholder="Enter Building Storeys" [(ngModel)]="property.buildingStoreys" required>
+            </div>
+            <div class="form-group">
+                <label for="buildingAge">Building Age:</label>
+                <input type="number" class="form-control" id="buildingAge" name="buildingAge" placeholder="Enter Building Age" [(ngModel)]="property.buildingAge" required>
+            </div>
+            <div class="form-group">
+                <label for="businessId">Business Id:</label>
+                <input type="number" class="form-control" id="businessId" name="businessId" placeholder="Enter Business Id" [(ngModel)]="property.businessId" required>
+            </div>
+             <div class="form-group">
+                <label for="propertyMasterId">Property Master Id:</label>
+                <input type="number" class="form-control" id="propertyMasterId" name="propertyMasterId" placeholder="Enter Property Master Id" [(ngModel)]="property.propertyMasterId" required>
+            </div>
+            <input type="submit" class="btn btn-success" [disabled]="!propertyForm.valid" value="Submit">
+            <input type="reset" class="btn btn-danger" style="float: right;" value="Clear">
+        </form>
+    </div>
+</div>
+
+<div *ngIf="flag_insert_msg">
+    <div style="padding: 2% 30% 0% 30%;">
+        <div class="alert" style="background-color: cornflowerblue;" *ngIf="create_msg">{{create_msg}}</div>
+    </div>
+</div>
+
+<div *ngIf="flag_update_msg">
+    <div style="padding: 2% 30% 0% 30%;">
+        <div class="alert" style="background-color: cornflowerblue;" *ngIf="update_msg">{{update_msg}}</div>
+    </div>
+</div>

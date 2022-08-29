@@ -1,0 +1,174 @@
+<div style="padding: 5% 0% 2% 22%;">
+    <button class="btn btn-danger" routerLinkActive="active-link" routerLink="/test-menu" id="link1">Go To Menu</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="get_api_consumer()">Consumer Details</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-success" (click)="btn_post()">New Consumer</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-warning" (click)="btn_put()">Update Consumer</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="btn_cid()">Consumer By Id Details</button>
+    &nbsp;&nbsp;
+</div>
+<div *ngIf="flag_get_c" style="padding: 0% 10% 0% 10%;">
+    <div class="con"  style="padding: 2% 10% 2% 10%;" >
+<table align="center">
+    <thead>
+        <tr>
+            <th>Consumer Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Consumer Name</th>&nbsp;&nbsp;&nbsp;
+            <th>Date of Birth</th>&nbsp;&nbsp;&nbsp;
+            <th>Email</th>&nbsp;&nbsp;&nbsp;
+            <th>PAN Number</th>&nbsp;&nbsp;&nbsp;
+            <th>Agent Id</th>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </thead>
+    &nbsp;
+    <tbody>
+        <tr *ngFor="let us of consumers" style="text-align: center;">
+            <td>{{us.consumerId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.consumerName}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.dateOfBirth | date}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.email}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.panNumber}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.agentId}}</td>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+
+
+<div style="padding: 0% 30% 0% 30%;">
+<div *ngIf="flag_get_cid">
+<form #UserstoryForm="ngForm" (ngSubmit)="get_api_consumerById(consumer_id)">
+    <div class="form-group">
+        <label for="c_id">Consumer Id</label>
+        <input type="number" class="form-control" id="c_id" name="c_id" [(ngModel)]="consumer_id">
+    </div>
+    <input type="submit" class="btn btn-success" value="Get Details">
+</form>
+</div>
+</div>
+
+<div *ngIf="flag_get_ciddetails" style="padding: 0% 10% 0% 10%;">
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+<table align="center">
+    <thead>
+        <tr>
+            <th>Consumer Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Consumer Name</th>&nbsp;&nbsp;&nbsp;
+            <th>Date of Birth</th>&nbsp;&nbsp;&nbsp;
+            <th>Email</th>&nbsp;&nbsp;&nbsp;
+            <th>PAN Number</th>&nbsp;&nbsp;&nbsp;
+            <th>Agent Id</th>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </thead>
+    &nbsp;
+    <tbody>
+        <tr>
+            <td>{{consumer.consumerId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{consumer.consumerName}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{consumer.dateOfBirth}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{consumer.email}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{consumer.panNumber}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{consumer.agentId}}</td>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+
+<div  *ngIf="flag_post" style="padding: 2% 30% 0% 30%;">
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+        <form #consumerForm="ngForm" (ngSubmit)="post_api(consumerForm.value)">
+            <!-- <div class="form-group">
+                <label for="consumerId">Consumer Id:</label>
+                <input type="number" class="form-control" id="consumerId" name="consumerId" placeholder="Enter Consumer Id" [(ngModel)]="cdetails.consumerId" required>
+            </div> --->
+            <div class="form-group">
+                <label for="consumerName">Consumer Name:</label>
+                <input type="text" class="form-control" id="consumerName" name="consumerName" 
+                placeholder="Enter Consumer Name" [(ngModel)]="cdetails.consumerName" pattern="[A-Za-z][a-zA-Z][a-zA-Z]+"  required/>
+                <small>*Required(Only Characters are allowed)</small>
+            </div>
+            <div class="form-group">
+                <label for="email">Consumer Email:</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Consumer Email" [(ngModel)]="cdetails.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                <small>*Required(Format should be abc@xyz.com)</small>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Consumer DOB:</label>
+                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Enter Consumer DOB" [(ngModel)]="cdetails.dateOfBirth"  required/>
+                <small>*Required</small>
+            </div>
+            <div class="form-group">
+                <label for="panNumber">Consumer PAN:</label>
+                <input type="text" class="form-control" id="panNumber" name="panNumber" placeholder="Enter Consumer PAN" [(ngModel)]="cdetails.panNumber" pattern="[A-Z]{5,6}" required/>
+                <small>*Required(Format should be as ABCDE)</small>
+            </div>
+            <div class="form-group">
+                <label for="agentId">Agent Id:</label>
+                <input type="number" class="form-control" id="agentId" name="agentId" placeholder="Enter Agent Id" [(ngModel)]="cdetails.agentId" required>
+                <small>*Required</small>
+            </div>
+            <input type="submit" class="btn btn-success" [disabled]="!consumerForm.valid" value="Submit">
+            <input type="reset" class="btn btn-danger" style="float: right;" value="Clear">
+        </form>
+    </div>
+    </div>
+
+    <div *ngIf="flag_put" style="padding: 2% 30% 0% 30%;">
+        <div class="form-group">
+            <label for="u_id">Update Id</label>
+            <input type="number" class="form-control" id="u_id" [(ngModel)]="update_id">
+        </div>
+        <div class="con" style="padding: 2% 10% 2% 10%;" >
+        <form #consumerForm="ngForm" (ngSubmit)="put_api(update_id,consumerForm.value)">
+            <div class="form-group">
+                <label for="consumerId">Consumer Id:</label>
+                <input type="number" class="form-control" id="consumerId" name="consumerId" placeholder="Enter Consumer Id" [(ngModel)]="cdetails.consumerId" required>
+                <small>*Required</small>
+            </div>
+            <div class="form-group">
+                <label for="consumerName">Consumer Name:</label>
+                <input type="text" class="form-control" id="consumerName" name="consumerName" placeholder="Enter Consumer Name" pattern="[A-Za-z][a-zA-Z][a-zA-Z]+" [(ngModel)]="cdetails.consumerName" required/>
+                <small>*Required(Only Characters are allowed)</small>
+            </div>
+            <div class="form-group">
+                <label for="email">Consumer Email:</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Enter Consumer Email" [(ngModel)]="cdetails.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  required/>
+                <small>*Required(Format should be abc@xyz.com)</small>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Consumer DOB:</label>
+                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Enter Consumer DOB" [(ngModel)]="cdetails.dateOfBirth" required/>
+                <small>*Required</small>
+            </div>
+            <div class="form-group">
+                <label for="panNumber">Consumer PAN:</label>
+                <input type="text" class="form-control" id="panNumber" name="panNumber" placeholder="Enter Consumer PAN" [(ngModel)]="cdetails.panNumber" pattern="[A-Z]{5,6}" required/>
+                <small>*Required(Format should be as ABCDE)</small>
+            </div>
+            <div class="form-group">
+                <label for="agentId">Agent Id:</label>
+                <input type="number" class="form-control" id="agentId" name="agentId" placeholder="Enter Agent Id" [(ngModel)]="cdetails.agentId" required>
+                <small>*Required</small>
+            </div>
+            <input type="submit" class="btn btn-success" [disabled]="!consumerForm.valid" value="Submit">
+            <input type="reset" class="btn btn-danger" style="float: right;" value="Clear">
+        </form>
+    </div>
+</div>
+
+<div *ngIf="flag_insert_msg">
+    <div style="padding: 2% 30% 0% 30%;">
+        <div class="alert" style="background-color: cornflowerblue;" *ngIf="create_msg">{{create_msg}}</div>
+    </div>
+</div>
+
+<div *ngIf="flag_update_msg">
+    <div style="padding: 2% 30% 0% 30%;">
+        <div class="alert" style="background-color: cornflowerblue;" *ngIf="update_msg">{{update_msg}}</div>
+    </div>
+</div>

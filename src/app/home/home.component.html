@@ -1,0 +1,17 @@
+<div style="padding: 0% 0% 0% 10%;">
+<br>
+<div *ngIf="isUserAuthenticated()">
+    <H1 class="name">Welcome to Insureity Portal {{agentName}}!!!</H1>
+    <button class="btn-primary" routerLinkActive="active-link" routerLink="/test-menu" id="link1">Go To Menu</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="btn-primary" routerLinkActive="active-link" routerLink="/test-login" id="link1">Logout</button>
+</div>
+</div>
+<div style="padding: 0% 25% 0% 25%;">
+<div *ngIf="invalidLogin">
+
+<div class="alert alert-danger" id="link2">
+    Invalid username or password<br>Please Login again</div>
+<button class="btn-primary" routerLinkActive="active-link" routerLink="/test-login" id="link1">Login</button>
+</div>
+</div>

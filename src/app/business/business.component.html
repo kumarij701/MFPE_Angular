@@ -1,0 +1,141 @@
+<div style="padding: 5% 0% 2% 22%;">
+    <button class="btn btn-danger" routerLinkActive="active-link" routerLink="/test-menu" id="link1">Go To Menu</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="get_api_business()">Business Details</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-success" (click)="btn_post_business()">New Business</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-warning" (click)="btn_put_business()">Update Business</button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" (click)="get_api_businessmaster()">Business Master Details</button>
+    &nbsp;&nbsp;
+</div>
+
+<div *ngIf="flag_get_businessmaster" style="padding: 0% 10% 0% 10%;">
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+<table align="center">
+    <thead>
+        <tr>
+            <th>Business Master Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Business Value</th>&nbsp;&nbsp;&nbsp;
+            <th>Business Turn Over</th>&nbsp;&nbsp;&nbsp;
+            <th>Capital Invest</th>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </thead>
+    &nbsp;
+    <tbody>
+        <tr *ngFor="let bm of businessmasters" style="text-align: center;">
+            <td>{{bm.businessMasterId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{bm.businessValue}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{bm.businessTurnOver}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{bm.capitalInvest}}</td>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+
+<div *ngIf="flag_get_business" style="padding: 0% 10% 0% 10%;">
+    <div class="con"  style="padding: 2% 10% 2% 10%;" >
+<table align="center">
+    <thead>
+        <tr>
+            <th>Business Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Business Name</th>&nbsp;&nbsp;&nbsp;
+            <th>Business Type</th>&nbsp;&nbsp;&nbsp;
+            <th>Total Employees</th>&nbsp;&nbsp;&nbsp;
+            <th>Consumer Id</th>&nbsp;&nbsp;&nbsp;
+            <th>Business Master Id</th>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </thead>
+    &nbsp;
+    <tbody>
+        <tr *ngFor="let us of businesslist" style="text-align: center;">
+            <td>{{us.businessId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.businessName}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.businessType}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.totalEmployees}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.consumerId}}</td>&nbsp;&nbsp;&nbsp;
+            <td>{{us.businessMasterId}}</td>&nbsp;&nbsp;&nbsp;
+        </tr>
+    </tbody>
+</table>
+    </div>
+</div>
+
+<div  *ngIf="flag_post" style="padding: 2% 30% 0% 30%;">
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+        <form #businessForm="ngForm" (ngSubmit)="post_api(businessForm.value)">
+            <div class="form-group">
+                <label for="businessName">Business Name:</label>
+                <input type="text" class="form-control" id="businessName" name="businessName" placeholder="Enter Business Name" [(ngModel)]="newbusiness.businessName" required/>
+            </div>
+            <div class="form-group">
+                <label for="businessType">Business Type:</label>
+                <input type="text" class="form-control" id="businessType" name="businessType" placeholder="Enter Business Type" [(ngModel)]="newbusiness.businessType" required/>
+            </div>
+            <div class="form-group">
+                <label for="totalEmployees">Total Employees:</label>
+                <input type="number" class="form-control" id="totalEmployees" name="totalEmployees" placeholder="Enter Total Employees" [(ngModel)]="newbusiness.totalEmployees" required>
+            </div>
+            <div class="form-group">
+                <label for="consumerId">Consumer Id:</label>
+                <input type="number" class="form-control" id="consumerId" name="consumerId" placeholder="Enter Consumer Id" [(ngModel)]="newbusiness.consumerId" required>
+            </div>
+            <div class="form-group">
+                <label for="businessTurnOver">Business Turn Over:</label>
+                <input type="number" class="form-control" id="businessTurnOver" name="businessTurnOver" placeholder="Enter Business TurnOver" [(ngModel)]="newbusiness.businessTurnOver" required>
+            </div>
+            <div class="form-group">
+                <label for="capitalInvest">Capital Invest:</label>
+                <input type="number" class="form-control" id="capitalInvest" name="capitalInvest" placeholder="Enter Capital Invest" [(ngModel)]="newbusiness.capitalInvest" required>
+            </div>
+            <input type="submit" class="btn btn-success" [disabled]="!businessForm.valid" value="Submit">
+            <input type="reset" class="btn btn-danger" style="float: right;" value="Clear">
+        </form>
+    </div>
+</div>
+
+<div *ngIf="flag_put" style="padding: 2% 30% 0% 30%;">
+    <div class="form-group">
+        <label for="u_id">Update Id</label>
+        <input type="number" class="form-control" id="u_id" [(ngModel)]="update_id">
+    </div>
+    <div class="con" style="padding: 2% 10% 2% 10%;" >
+    <form #businessForm="ngForm" (ngSubmit)="put_api(update_id,businessForm.value)">
+        <div class="form-group">
+            <label for="businessName">Business Name:</label>
+            <input type="text" class="form-control" id="businessName" name="businessName" placeholder="Enter Business Name" [(ngModel)]="business.businessName" required/>
+        </div>
+        <div class="form-group">
+            <label for="businessType">Business Type:</label>
+            <input type="text" class="form-control" id="businessType" name="businessType" placeholder="Enter Business Type" [(ngModel)]="business.businessType" required/>
+        </div>
+        <div class="form-group">
+            <label for="totalEmployees">Total Employees:</label>
+            <input type="number" class="form-control" id="totalEmployees" name="totalEmployees" placeholder="Enter Total Employees" [(ngModel)]="business.totalEmployees" required>
+        </div>
+         <div class="form-group">
+            <label for="businessMasterId">Business Master Id:</label>
+            <input type="number" class="form-control" id="businessMasterId" name="businessMasterId" placeholder="Enter Business Master Id" [(ngModel)]="business.businessMasterId" required>
+        </div>
+       
+        <input type="submit" class="btn btn-success" [disabled]="!businessForm.valid" value="Submit">
+        <input type="reset" class="btn btn-danger" style="float: right;" value="Clear">
+    </form>
+</div>
+</div>
+
+<div *ngIf="flag_insert_msg">
+<div style="padding: 2% 30% 0% 30%;">
+    <div class="alert" style="background-color: cornflowerblue;" *ngIf="create_msg">{{create_msg}}</div>
+</div>
+</div>
+
+<div *ngIf="flag_update_msg">
+<div style="padding: 2% 30% 0% 30%;">
+    <div class="alert" style="background-color: cornflowerblue;" *ngIf="update_msg">{{update_msg}}</div>
+</div>
+</div>
+
+

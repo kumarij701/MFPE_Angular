@@ -1,0 +1,24 @@
+<div style="padding: 10% 30% 0% 30%;">
+<div class="con"  style="padding: 2% 10% 2% 10%;" >
+    <h2 class="fw-bold mb-2 text-uppercase">Login To Insureity Portal</h2>
+    <small>Please enter your login and password!</small>
+    <br>
+    <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <div class="text-center">
+        <div class="form-outline form-white mb-4">
+            <br>
+            <input type="name" name="userName" ngModel id="userName" class="form-control" placeholder="Agent Name" />
+                  <!-- <label class="form-label" for="typeEmailX">Agent Name</label> -->
+        </div>
+        <br>
+        <div class="form-outline form-white mb-4">
+        <input type="password" name="password" ngModel id="password" class="form-control form-control-lg" placeholder="Password"/>
+            <!-- <label class="form-label" for="typePasswordX">Password</label> -->
+        </div>
+        <br><br>
+        <button class="btn btn-outline-light btn-lg px-5 btn-success" type="submit">Login</button>
+        <br><br>
+        </div>
+    </form>
+</div>
+</div>       

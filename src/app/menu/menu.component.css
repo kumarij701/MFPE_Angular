@@ -1,0 +1,21 @@
+
+    .heading{
+        text-align: center;
+        font-family:sans-serif;
+        padding: 1% 0% 1% 0%;
+    }
+
+    #navbar{
+        padding: 2% 0% 2% 15%;
+    }
+
+    #link1{
+        padding-right: 25px;
+        font-size: 25px;
+        padding-left: 25px;
+    }
+
+    #link1:hover{
+        background-color: orchid;
+    }
+    
